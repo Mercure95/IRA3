@@ -6,9 +6,9 @@ import streamlit as st
 
 st.set_page_config(page_title="Réservations Train", layout="centered")
 
-# =========================
-# === TON CODE ORIGINAL ===
-# =========================
+
+### PARTIE CODE ###
+
 trains = {
     'TUN-PAR': {'places_total': 5, 'places_restantes': 5, 'passagers': set()},
     'TUN-ROM': {'places_total': 3, 'places_restantes': 0, 'passagers': set()},
@@ -125,7 +125,7 @@ def menu(trains):
         elif choix == "2":
             reserver(trains)
         elif choix == "3":
-            annuler(trains)   # <- resté comme dans ton code
+            supprimer_passager(trains)   # <- resté comme dans ton code
         elif choix == "4":
             afficher_passagers(trains)
         elif choix == "5":
@@ -135,21 +135,17 @@ def menu(trains):
         else:
             print("Choix invalide, réessaie.\n")
 
-# ================================
-# === COUCHE STREAMLIT MINIMALE ==
-# ================================
-# État persistant
+### PARTIE STREAMLIT ###
+
 if "trains" not in st.session_state:
     st.session_state.trains = deepcopy(trains)
 
-# Petit shim pour remplacer input()/print()
 class IOShim:
     def __init__(self, inputs):
         self.inputs = list(inputs)  # queue
         self.outputs = []
 
     def input(self, prompt=""):
-        # on ignore prompt côté UI, on consomme la queue
         if not self.inputs:
             raise RuntimeError("Input manquant pour le flux Streamlit.")
         return self.inputs.pop(0)
@@ -172,7 +168,6 @@ def patch_io(shim: IOShim):
 
 st.title("Réservations de trains")
 
-# Choix d’action (équivalent menu)
 action = st.selectbox(
     "Choisir une action",
     (
@@ -184,7 +179,6 @@ action = st.selectbox(
     )
 )
 
-# Widgets simples
 codes = list(st.session_state.trains.keys())
 col1, col2 = st.columns(2)
 
@@ -200,7 +194,6 @@ elif action == "Réserver une place":
     code = col1.selectbox("Code trajet", options=codes)
     nom  = col2.text_input("Nom du passager")
     if st.button("Réserver"):
-        # Alimente la queue pour input(): [code, nom]
         shim = IOShim(inputs=[code, nom])
         with patch_io(shim):
             reserver(st.session_state.trains)
@@ -209,13 +202,12 @@ elif action == "Réserver une place":
 
 elif action == "Annuler une réservation":
     code = col1.selectbox("Code trajet", options=codes)
-    # propose les passagers inscrits pour aide, mais on laisse zone libre
     existants = sorted(st.session_state.trains[code]['passagers'])
     nom = col2.selectbox("Nom du passager", [""] + existants)
     if st.button("Annuler"):
         shim = IOShim(inputs=[code, nom])
         with patch_io(shim):
-            supprimer_passager(st.session_state.trains)  # on appelle ta fonction existante
+            supprimer_passager(st.session_state.trains)
         for line in shim.outputs:
             st.write(line)
 
@@ -237,7 +229,6 @@ elif action == "Voir les trains complets":
             st.write(line)
 
 st.divider()
-# Affichage d'état brut pour visibilité débutant
 st.subheader("État actuel")
 for k, v in st.session_state.trains.items():
     st.write(k, "→", f"{v['places_restantes']}/{v['places_total']} | Passagers:", sorted(v['passagers']))
