@@ -125,7 +125,7 @@ def menu(trains):
         elif choix == "2":
             reserver(trains)
         elif choix == "3":
-            supprimer_passager(trains)   # <- resté comme dans ton code
+            supprimer_passager(trains)
         elif choix == "4":
             afficher_passagers(trains)
         elif choix == "5":
