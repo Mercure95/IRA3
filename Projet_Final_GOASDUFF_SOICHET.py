@@ -1,8 +1,6 @@
-#import streamlit
-
 trains = {
     'TUN-PAR': {'places_total': 5, 'places_restantes': 5, 'passagers': set()},
-    'TUN-ROM': {'places_total': 3, 'places_restantes': 3, 'passagers': set()},
+    'TUN-ROM': {'places_total': 3, 'places_restantes': 0, 'passagers': set()},
     'TUN-MAD': {'places_total': 4, 'places_restantes': 4, 'passagers': set()},
 }
 
@@ -18,6 +16,12 @@ def demander_code_trajet(trains):
     return trajet
 
 ## 1 ##
+def afficher_trains(trains):
+    for trajet, info in trains.items():
+        places_total=info['places_total']
+        places_restante=info['places_restantes']
+        passager=info['passagers']
+        print(f"Trajet {trajet} : {places_restante} places restantes /{places_total}")
 
 ## 2 ##
 
@@ -69,8 +73,39 @@ def supprimer_passager(trains):
 
 ## 4 ##
 
+def afficher_passagers(trains):
+    code = demander_code_trajet(trains)
+    if code is None:
+        return 
+    
+    passagers = trains[code]['passagers']
+    
+    print(f"\n===Passagers pour {code} ===")
+    if not passagers:
+        print("Aucun passager n'est encore enregistré pour ce trajet.")
+        return
+    
+    liste_tri = sorted(list(passagers))
+    print(f"Total des passagers : {len(liste_tri)}")
+    for i, nom in enumerate(liste_tri, 1):
+        print(f"{i}. {nom}")
 
 ## 5 ##
+
+def afficher_trains_complets(trains):
+
+    train_complet_trouve=False
+
+    for trajet, info in trains.items():
+        places_restante=info['places_restantes']
+        
+        if places_restante==0:
+            print(f"===le train {trajet} est complet ===")
+            train_complet_trouve=True
+            
+
+    if not train_complet_trouve:
+        print("Bonne nouvelle ! Aucun train n'est actuellement complet.")
 
 ## MENU ##
 
