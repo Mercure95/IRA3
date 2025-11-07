@@ -52,7 +52,10 @@ def reserver(trains):
     if nom not in info['passagers']:
         info['passagers'].add(nom)
         info['places_restantes'] -= 1
+        numero_place = info['places_total'] - info['places_restantes']
+        ticket = (nom, code, numero_place)
 
+    print(ticket)
     print("Passager:", nom)
     print("Trajet:", code)
     print("Place restantes:", info['places_restantes'])
@@ -231,4 +234,4 @@ elif action == "Voir les trains complets":
 st.divider()
 st.subheader("État actuel")
 for k, v in st.session_state.trains.items():
-    st.write(k, "→", f"{v['places_restantes']}/{v['places_total']} | Passagers:", sorted(v['passagers']))
+    st.write(k, "->", f"{v['places_restantes']}/{v['places_total']} | Passagers:", sorted(v['passagers']))

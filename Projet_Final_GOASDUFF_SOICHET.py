@@ -43,6 +43,10 @@ def reserver(trains):
     if nom not in info['passagers']:
         info['passagers'].add(nom)
         info['places_restantes'] -= 1
+        numero_place = info['places_total'] - info['places_restantes']
+        ticket = (nom, code, numero_place)
+
+    print(ticket)
 
 
     print("Passager:", nom)
