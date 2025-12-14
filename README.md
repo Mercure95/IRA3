@@ -1,70 +1,99 @@
-Mini Projet TD1
+# Car Rental System
 
+## Description
 
-Objectif du projet 
+Ce projet est une application de gestion de location de voitures développée selon les principes de la programmation orientée objet.
+Elle permet à une agence de location de gérer son parc automobile, ses clients et ses locations, tout en assurant le calcul des coûts et la génération de rapports.
 
-L’objectif de ce projet est de concevoir un petit programme de gestion de réservations de trains. Le programme sera entièrement en console, et devra permettre de gérer plusieurs trajets, des passagers, et des places disponibles. Il s’agit de manipuler les structures de base du langage Python : dictionnaires, ensembles (set), tuples, listes, boucles et conditions. Aucune base de données, ni interface graphique n’est requise. 
+## Objectifs
 
-Description générale 
+- Gérer une flotte de véhicules
+- Gérer les clients
+- Effectuer et suivre les locations
+- Calculer le coût total d’une location
+- Générer des rapports et statistiques
 
-Une société ferroviaire souhaite un programme simple pour gérer les réservations de ses trains. Chaque train est défini par un trajet de trajet (ex. 'TUN-PAR'), un nombre total de places, un nombre de places restantes, et la liste des passagers inscrits (sans doublons). Le programme doit permettre à un agent de : 
+## Fonctionnalités
 
-1. Afficher tous les trajets disponibles et leur nombre de places restantes. 
-2. Réserver une place pour un passager donné sur un trajet choisi. 
-3. Annuler une réservation existante. 
-4. Afficher la liste des passagers d’un train donné. 
-5. Afficher les trains complets. 
-6. (Bonus) Générer un ticket de réservation sous forme de tuple. 
+### 1. Gestion de la flotte automobile
 
-Structure de départ suggérée 
+- Hiérarchie de classes :
+  - `Vehicle`
+  - `Car`
+  - `Truck`
+  - `Motorcycle`
+- Attributs :
+  - `id`
+  - `marque`
+  - `modele`
+  - `categorie`
+  - `tarif`
+  - `etat`
+- Option avancée :
+  - Gestion de l’entretien des véhicules
 
-Vous pouvez utiliser la structure suivante : 
+### 2. Gestion des clients
 
-trains = { 
-    'TUN-PAR': {'places_total': 5, 'places_restantes': 5, 'passagers': set()}, 
-    'TUN-ROM': {'places_total': 3, 'places_restantes': 3, 'passagers': set()}, 
-    'TUN-MAD': {'places_total': 4, 'places_restantes': 4, 'passagers': set()}, 
-} 
+- Classe `Customer`
+- Attributs :
+  - `id`
+  - `nom`
+  - `prenom`
+  - `age`
+  - `permis`
+  - `historique`
+- Règles métier :
+  - Âge minimum requis selon le type de véhicule
 
-Fonctionnalités attendues 
+### 3. Système de réservation (Location)
 
-1️⃣ Afficher les trains 
-- Afficher chaque trajet avec le nombre total de places et le nombre de places restantes. 
-- Exemple : TUN-PAR → 3 places restantes / 5 
+- Classe `Rental`
+- Données :
+  - Client
+  - Véhicule
+  - Dates de début et de fin
+  - Coût total
+- Règles :
+  - Vérification de la disponibilité
+  - Validation des dates
+  - Gestion des pénalités en cas de retard
 
-2️⃣ Réserver une place 
-- Demander le nom du passager et le code du trajet. 
-- Vérifier si le trajet existe et s’il reste des places. 
-- Ajouter le passager et diminuer les places restantes. 
-- Empêcher un même passager de réserver deux fois. 
-- Afficher un message clair en cas d’erreur ou de succès. 
+### 4. Système central
 
-3️⃣ Annuler une réservation 
-- Supprimer un passager de la liste et augmenter les places restantes. 
+- Classe principale `CarRentalSystem`
+- Responsabilités :
+  - Gestion des véhicules
+  - Gestion des clients
+  - Gestion des locations
+  - Recherche et filtrage
+  - Génération de rapports
 
-4️⃣ Afficher les passagers d’un train 
-- Afficher la liste triée des passagers d’un trajet donné. 
+## Rapports
 
-5️⃣ Afficher les trains complets 
-- Lister les trains dont le nombre de places restantes est égal à zéro. 
+- Véhicules disponibles
+- Locations en cours
+- Chiffre d’affaires
+- Statistiques générales
 
-6️⃣ (Bonus) Génération de ticket 
-- Lors d’une réservation, créer un tuple (nom, trajet, numéro_de_place). 
+## Structure du projet
 
-Menu principal  
+- Code organisé en modules
+- Diagramme UML des classes
+- Tests unitaires
+- Documentation
 
-Le programme doit tourner dans une boucle principale avec un menu textuel : 
- 
-=== MENU RÉSERVATION TRAIN === 
-1️⃣  Afficher les trains 
-2️⃣  Réserver une place 
-3️⃣  Annuler une réservation 
-4️⃣  Afficher les passagers d’un train 
-5️⃣  Voir les trains complets 
-0️⃣  Quitter 
+## Technologies
 
-Livrable attendu 
+- Programmation orientée objet
+- Langage : selon l’implémentation du projet
 
-- Repo GitHub 
+## Livrables
 
-- Demo 
+- Dépôt GitHub contenant le code source
+- Diagramme UML
+- Fichier README
+- Tests unitaires
+
+## Auteur
+
+GOASDUFF Pierre / SOICHET Quentin
