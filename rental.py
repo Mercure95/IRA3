@@ -1,23 +1,15 @@
 from datetime import datetime
 from customer import Customer 
 
-class MockVehicle:
-    def __init__(self, marque, tarif):
-        self.marque = marque
-        self.tarif = tarif
-
-        
 class Rental:
     def __init__(self, client, vehicule, date_debut, date_fin):
         self.client = client      
         self.vehicule = vehicule  
         self.date_debut = date_debut 
         self.date_fin = date_fin    
+        self.penalite = 0
         self.cout_total = 0.0    
         self.statut = "active" 
-
-    def calculer_duree(self):
-        pass
 
     def est_valide(self):
         return self.date_fin > self.date_debut
