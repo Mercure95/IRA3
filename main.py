@@ -6,17 +6,21 @@ from rental import Rental
 
 
 def main():
-    client1 = Customer(1, "Dupont", "Jean", 30, "B123456")
-    client2 = Customer(2, "Martin", "Alice", 22, "C654321")
+    client1 = Customer(1, "B", "Alban", 30, "B123456")
+    client2 = Customer(2, "O", "Mike", 22, "C654321")
 
-    car1 = Car(1, "Peugeot", "208", 45)
-    truck1 = Truck(2, "Renault", "Master", 80)
-    moto1 = Motorcycle(3, "Yamaha", "MT-07", 35)
+    v1 = Car(1, "Bugatti", "Chiron Super Sport", "Hypercars", 3000, "disponible")
+    v2 = Car(2, "Koenigsegg", "Jesko Absolut", "Hypercars", 3500, "disponible")
+    v3 = Car(3, "Pagani", "Huayra BC", "Hypercars", 2800, "disponible")
+    v4 = Car(4, "McLaren", "Speedtail", "Hypercars", 2700, "loué")
+    v5 = Car(5, "Lamborghini", "Sián FKP 37", "Hypercars", 2600, "disponible")
+    v6 = Truck(2, "Mercedes", "Actros", "Camion", 120, "disponible")
+    v7 = Motorcycle(3, "Yamaha", "MT-07", "Moto", 60, "loué")
 
     date_debut = datetime(2024, 6, 1)
     date_fin = datetime(2024, 6, 5)
 
-    location1 = Rental(client1, car1, date_debut, date_fin)
+    location1 = Rental(client1, v1, date_debut, date_fin)
 
     if location1.est_valide():
         cout = location1.calculer_cout_total()

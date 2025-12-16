@@ -1,26 +1,26 @@
 class Vehicle:
-    def __init__(self, id_vehicule, marque, modele, categorie, tarif, etat="disponible"):
-        self.id_vehicule = id_vehicule
+    def __init__(self, vid, marque, modele, categorie, tarif, etat):
+        self.id = vid
         self.marque = marque
         self.modele = modele
         self.categorie = categorie
         self.tarif = tarif
-        self.etat = etat
+        self.etat = etat  # ex. "disponible", "loué", "entretien"
 
-    def est_disponible(self):
-        return self.etat == "disponible"
+    def __str__(self):
+        return f"{self.marque} {self.modele} ({self.categorie})"
 
 
 class Car(Vehicle):
-    def __init__(self, id_vehicule, marque, modele, tarif):
-        super().__init__(id_vehicule, marque, modele, "Voiture", tarif)
+    def __init__(self, vid, marque, modele, categorie, tarif, etat):
+        super().__init__(vid, marque, modele, categorie, tarif, etat) #appel classe parente depuis enfant
 
 
 class Truck(Vehicle):
-    def __init__(self, id_vehicule, marque, modele, tarif):
-        super().__init__(id_vehicule, marque, modele, "Camion", tarif)
+    def __init__(self, vid, marque, modele, categorie, tarif, etat):
+        super().__init__(vid, marque, modele, categorie, tarif, etat)
 
 
 class Motorcycle(Vehicle):
-    def __init__(self, id_vehicule, marque, modele, tarif):
-        super().__init__(id_vehicule, marque, modele, "Moto", tarif)
+    def __init__(self, vid, marque, modele, categorie, tarif, etat):
+        super().__init__(vid, marque, modele, categorie, tarif, etat)
