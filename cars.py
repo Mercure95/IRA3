@@ -5,7 +5,7 @@ class Vehicle:
         self.modele = modele
         self.categorie = categorie
         self.tarif = tarif
-        self.etat = etat  # ex. "disponible", "loué", "entretien"
+        self.etat = etat  # "disponible", "loué", "entretien"
 
     def __str__(self):
         return f"{self.marque} {self.modele} ({self.categorie})"

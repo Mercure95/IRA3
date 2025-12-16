@@ -5,14 +5,14 @@
 Ce dépôt contient un mini-système de location basé sur la programmation orientée objet.  
 Le projet est découpé en modules Python : véhicules, clients, locations, et un point d’entrée (`main.py`) qui démontre l’utilisation de l’ensemble.
 
-Le cahier des charges de base correspond à un système permettant de gérer un parc de véhicules, des clients, et de créer des locations avec calcul automatique du coût. :contentReference[oaicite:0]{index=0}
+Le cahier des charges de base correspond à un système permettant de gérer un parc de véhicules, des clients, et de créer des locations avec calcul automatique du coût.
 
 ## Structure du dépôt
 
-- `cars.py` : hiérarchie des véhicules (`Vehicle`, `Car`, `Truck`, `Motorcycle`) :contentReference[oaicite:1]{index=1}  
-- `customer.py` : gestion des clients (`Customer`) :contentReference[oaicite:2]{index=2}  
-- `rental.py` : gestion des locations (`Rental`) : validation des dates, coût total, pénalités, statut :contentReference[oaicite:3]{index=3}  
-- `main.py` : point d’entrée, instanciation de clients/véhicules et création d’une location :contentReference[oaicite:4]{index=4}
+- `cars.py` : hiérarchie des véhicules (`Vehicle`, `Car`, `Truck`, `Motorcycle`)
+- `customer.py` : gestion des clients (`Customer`)
+- `rental.py` : gestion des locations (`Rental`) : validation des dates, coût total, pénalités, statut.
+- `main.py` : point d’entrée, instanciation de clients/véhicules et création d’une location.
 
 ## Détails des modules
 
