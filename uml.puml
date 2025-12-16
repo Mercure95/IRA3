@@ -1,14 +1,16 @@
+
+```puml
 @startuml
-skinparam classAttributeIconSize 0
+title UML - Système de location de véhicules
 
 class Vehicle {
-  - id_vehicule : int
-  - marque : str
-  - modele : str
-  - categorie : str
-  - tarif : float
-  - etat : str
-  + est_disponible() : bool
+  +id
+  +marque
+  +modele
+  +categorie
+  +tarif
+  +etat
+  +__str__()
 }
 
 class Car
@@ -20,48 +22,35 @@ Vehicle <|-- Truck
 Vehicle <|-- Motorcycle
 
 class Customer {
-  - id_client : int
-  - nom : str
-  - prenom : str
-  - age : int
-  - permis : str
-  - historique_locations : list
-  + verifier_age(age_minimum:int) : bool
-  + ajouter_location_historique(location:Rental)
+  +id_client
+  +nom
+  +prenom
+  +age
+  +permis
+  +historique_locations
+  +__str__()
+  +verifier_age(age_minimum)
+  +ajouter_location_historique(location)
 }
 
 class Rental {
-  - client : Customer
-  - vehicule : Vehicle
-  - date_debut : datetime
-  - date_fin : datetime
-  - cout_total : float
-  - penalite : float
-  - statut : str
-  + est_valide() : bool
-  + calculer_cout_total() : float
-  + ajouter_penalite(montant:float)
-  + terminer_location()
+  +client
+  +vehicule
+  +date_debut
+  +date_fin
+  +penalite
+  +cout_total
+  +statut
+  +est_valide()
+  +calculer_cout_total()
+  +ajouter_penalite(montant)
+  +terminer_location()
+  +__str__()
 }
 
-Customer "1" o-- "0..*" Rental : historique
-Rental "*" --> "1" Customer
-Rental "*" --> "1" Vehicle
-
-class CarRentalSystem {
-  - clients : list
-  - vehicules : list
-  - locations : list
-  + ajouter_client(c:Customer)
-  + ajouter_vehicule(v:Vehicle)
-  + creer_location(c:Customer, v:Vehicle, debut:datetime, fin:datetime) : Rental
-  + vehicules_disponibles() : list
-  + locations_en_cours() : list
-  + chiffre_affaires() : float
-}
-
-CarRentalSystem "1" o-- "0..*" Customer
-CarRentalSystem "1" o-- "0..*" Vehicle
-CarRentalSystem "1" o-- "0..*" Rental
+' Relations principales
+Customer "1" --> "0..*" Rental : historique_locations
+Rental "1" --> "1" Customer : client
+Rental "1" --> "1" Vehicle : vehicule
 
 @enduml

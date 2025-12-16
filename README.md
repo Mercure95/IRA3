@@ -1,99 +1,87 @@
-# Car Rental System
+# Système de location de véhicules (Python)
 
-## Description
+## Présentation
 
-Ce projet est une application de gestion de location de voitures développée selon les principes de la programmation orientée objet.
-Elle permet à une agence de location de gérer son parc automobile, ses clients et ses locations, tout en assurant le calcul des coûts et la génération de rapports.
+Ce dépôt contient un mini-système de location basé sur la programmation orientée objet.  
+Le projet est découpé en modules Python : véhicules, clients, locations, et un point d’entrée (`main.py`) qui démontre l’utilisation de l’ensemble.
 
-## Objectifs
+Le cahier des charges de base correspond à un système permettant de gérer un parc de véhicules, des clients, et de créer des locations avec calcul automatique du coût. :contentReference[oaicite:0]{index=0}
 
-- Gérer une flotte de véhicules
-- Gérer les clients
-- Effectuer et suivre les locations
-- Calculer le coût total d’une location
-- Générer des rapports et statistiques
+## Structure du dépôt
 
-## Fonctionnalités
+- `cars.py` : hiérarchie des véhicules (`Vehicle`, `Car`, `Truck`, `Motorcycle`) :contentReference[oaicite:1]{index=1}  
+- `customer.py` : gestion des clients (`Customer`) :contentReference[oaicite:2]{index=2}  
+- `rental.py` : gestion des locations (`Rental`) : validation des dates, coût total, pénalités, statut :contentReference[oaicite:3]{index=3}  
+- `main.py` : point d’entrée, instanciation de clients/véhicules et création d’une location :contentReference[oaicite:4]{index=4}
 
-### 1. Gestion de la flotte automobile
+## Détails des modules
 
-- Hiérarchie de classes :
-  - `Vehicle`
-  - `Car`
-  - `Truck`
-  - `Motorcycle`
-- Attributs :
-  - `id`
-  - `marque`
-  - `modele`
-  - `categorie`
-  - `tarif`
-  - `etat`
-- Option avancée :
-  - Gestion de l’entretien des véhicules
+### 1) Véhicules (`cars.py`)
 
-### 2. Gestion des clients
+#### Classe `Vehicle`
+Représente un véhicule générique.
 
-- Classe `Customer`
-- Attributs :
-  - `id`
-  - `nom`
-  - `prenom`
-  - `age`
-  - `permis`
-  - `historique`
-- Règles métier :
-  - Âge minimum requis selon le type de véhicule
+Attributs :
+- `id` : identifiant du véhicule
+- `marque`
+- `modele`
+- `categorie`
+- `tarif` : prix journalier
+- `etat` : par exemple `disponible`, `loué`, `entretien`
 
-### 3. Système de réservation (Location)
+Méthodes :
+- `__str__()` : affichage lisible du véhicule
 
-- Classe `Rental`
-- Données :
-  - Client
-  - Véhicule
-  - Dates de début et de fin
-  - Coût total
-- Règles :
-  - Vérification de la disponibilité
-  - Validation des dates
-  - Gestion des pénalités en cas de retard
+#### Classes filles
+- `Car`
+- `Truck`
+- `Motorcycle`
 
-### 4. Système central
+Ces classes héritent de `Vehicle` et réutilisent l’initialisation de la classe parente via `super().__init__`.
 
-- Classe principale `CarRentalSystem`
-- Responsabilités :
-  - Gestion des véhicules
-  - Gestion des clients
-  - Gestion des locations
-  - Recherche et filtrage
-  - Génération de rapports
+### 2) Clients (`customer.py`)
 
-## Rapports
+#### Classe `Customer`
+Représente un client.
 
-- Véhicules disponibles
-- Locations en cours
-- Chiffre d’affaires
-- Statistiques générales
+Attributs :
+- `id_client`
+- `nom`, `prenom`
+- `age`
+- `permis`
+- `historique_locations` : liste des locations effectuées
 
-## Structure du projet
+Méthodes :
+- `__str__()` : affichage du client
+- `verifier_age(age_minimum)` : renvoie `True` si l’âge du client respecte l’âge minimum
+- `ajouter_location_historique(location)` : ajoute une location à l’historique
 
-- Code organisé en modules
-- Diagramme UML des classes
-- Tests unitaires
-- Documentation
+### 3) Locations (`rental.py`)
 
-## Technologies
+#### Classe `Rental`
+Représente une location entre un client et un véhicule, sur une période donnée.
 
-- Programmation orientée objet
-- Langage : selon l’implémentation du projet
+Attributs :
+- `client` : instance de `Customer`
+- `vehicule` : instance de `Vehicle` (ou `Car`/`Truck`/`Motorcycle`)
+- `date_debut`, `date_fin` : dates (objets `datetime`)
+- `penalite` : montant ajouté au total (par défaut 0)
+- `cout_total` : calculé automatiquement
+- `statut` : `active` ou `terminée`
 
-## Livrables
+Méthodes :
+- `est_valide()` : vérifie que `date_fin > date_debut`
+- `calculer_cout_total()` :
+  - calcule la durée en jours (minimum 1)
+  - multiplie par le `tarif` journalier du véhicule
+  - ajoute la pénalité
+- `ajouter_penalite(montant)` : incrémente la pénalité et recalcule le total
+- `terminer_location()` : passe le statut à `terminée` et affiche le total
+- `__str__()` : affichage court de la location
 
-- Dépôt GitHub contenant le code source
-- Diagramme UML
-- Fichier README
-- Tests unitaires
+## Exécution
 
-## Auteur
+Lancer le programme :
 
-GOASDUFF Pierre / SOICHET Quentin
+```bash
+python main.py
